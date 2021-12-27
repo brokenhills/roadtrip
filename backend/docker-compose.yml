@@ -1,0 +1,21 @@
+version: '3'
+services:
+  database:
+    image: postgres
+    env_file:
+      - database.env
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+  rabbit:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+  mongo-db:
+    image: library/mongo:latest
+    ports:
+      - 27018:27017
+volumes:
+  database-data:

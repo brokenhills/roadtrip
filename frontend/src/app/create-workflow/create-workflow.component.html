@@ -1,0 +1,37 @@
+<div class="workflow-container">
+    <form class="create-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="header-container">
+            <label for="name">Title: </label>
+            <input type="text" formControlName="name" id="name" required>
+            <div class="dropdown-container">
+                <label for="type">Type: </label>
+                <input type="text" formControlName="type" id="type" list="types" required>
+                    <datalist id="types">
+                        <option *ngFor="let type of workflowTypes">
+                            <label>{{ type }}</label>
+                        </option>
+                    </datalist>
+                <label for="state">State: </label>
+                <input type="text" formControlName="state" id="state" list="states" required>
+                    <datalist id="states">
+                        <option *ngFor="let state of workflowStates">
+                            <label>{{ state }}</label>
+                        </option>
+                    </datalist>
+            </div>    
+        </div>
+        <div class="content-container">
+            <textarea class="content" type="text" formControlName="content" id="content" required></textarea>
+            <div class="links-container">
+                <label for="parent">Parent: </label>
+                <input type="search" formControlName="parent" id="parent">
+                <label for="child">Child: </label>
+                <input type="search" formControlName="child" id="child">
+            </div>
+        </div>
+    <div class="button-container">
+        <button class="button-submit">Save</button>
+        <button class="button-cancel" (click)="onCancel()">Cancel</button>
+    </div>    
+    </form>
+</div>

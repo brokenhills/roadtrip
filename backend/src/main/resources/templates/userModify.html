@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+    <div th:insert="common.html :: header"></div>
+    <div class="container">
+        <div th:insert="common.html :: sidebar"></div>
+        <div class="form-user-modification">
+            <form method="POST" th:object="${user}" th:action="@{/admin/modify/user}">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                <input type="hidden" name="id" th:value="${user.id}"/>
+                <label for="username">Username: </label>
+                <input name="username" type="text" th:value="${user.username}"/>
+                <p th:if="${#fields.hasErrors('username')}">Username is required</p>
+                <br/>
+                <label for="password">Password: </label>
+                <input type="password" name="password" /><br/>
+                <label for="confirm">Confirm password: </label>
+                <input type="password" name="confirm" /><br/>
+                <label for="firstName">First name: </label>
+                <input type="text" name="firstName" th:value="${user.firstName}"/><br/>
+                <label for="lastName">Last name: </label>
+                <input type="text" name="lastName" th:value="${user.lastName}"/><br/>
+                <label for="middleName">Middle name: </label>
+                <input type="text" name="middleName" th:value="${user.middleName}"/><br/>
+                <label for="isEnabled">Is enabled: </label>
+                <input type="checkbox" name="isEnabled" th:value="${user.isEnabled}"/><br/>
+                <label for="isLocked">Is locked: </label>
+                <input type="checkbox" name="isLocked" th:value="${user.isLocked}"/><br/>
+                <label for="validUntil">Valid until: </label>
+                <input type="datetime-local" name="validUntil" th:value="${user.validUntil}"/><br/>
+                <label for="department">Department: </label>
+                <input type="text" name="department" th:value="${user.department.name}"/><br/>
+                <label for="roleType">Role: </label>
+                <input type="text" name="roleType" th:value="${user.role.type}"/><br/>
+                <button type="submit" name="submit" class="button-save" value="Save">Save</button>
+                <br/>
+            </form>
+        </div>
+    </div>
+    <div th:insert="common.html :: footer"></div>
+</body>
+</html>

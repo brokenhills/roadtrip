@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New user</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+    <div th:insert="common.html :: header"></div>
+    <div class="container">
+        <div th:insert="common.html :: sidebar"></div>
+        <div class="form-registration">
+            <form method="POST" th:action="@{/admin/users}" id="userForm">
+                <label for="username">Username: </label>
+                <input type="text" name="username"/><br/>
+                <label for="password">Password: </label>
+                <input type="password" name="password"/><br/>
+                <label for="confirm">Confirm password: </label>
+                <input type="password" name="confirm"/><br/>
+                <label for="firstName">First name: </label>
+                <input type="text" name="firstName"/><br/>
+                <label for="lastName">Last name: </label>
+                <input type="text" name="lastName"/><br/>
+                <label for="middleName">Middle name: </label>
+                <input type="text" name="middleName"/><br/>
+                <div class="menu-link">
+                    <input type="submit" value="Create"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div th:insert="common.html :: footer"></div>
+</body>
+</html>

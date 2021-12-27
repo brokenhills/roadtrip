@@ -1,0 +1,44 @@
+<div class="workflow-list-container" *ngIf="workflows?.length >= 0 && isShowList">
+    <table *ngIf="workflows?.length > 0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>State</th>
+                <th>Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let workflow of workflows" (click)="onEditWorkflow(workflow)" [routerLink]="['edit']">
+                <td>
+                    {{workflow.name}}
+                </td>
+                <td>
+                    {{workflow.type}}
+                </td>
+                <td>
+                    {{workflow.state}}
+                </td>
+                <td>
+                    {{workflow.content}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="button-container" (click)="onCreateWorkflow()" [routerLink]="['create']">
+        <!-- <img class="button-create" src="/assets/svg/267-plus.svg"> -->
+        <span class="button-create-text">New</span>
+    </div>
+</div>
+<app-edit-workflow 
+    *ngIf="showEditForm" 
+    [workflowUrl]="workflowUrl"
+    (saveEvent)="onApproveEdit($event)"
+    (cancelEvent)="onCancelEdit($event)">
+</app-edit-workflow>
+<app-create-workflow 
+    *ngIf="showCreateForm" 
+    [currentUserUrl]="currentUserUrl" 
+    (saveEvent)="onApproveCreate($event)"
+    (cancelEvent)="onCancelCreate($event)">
+</app-create-workflow>

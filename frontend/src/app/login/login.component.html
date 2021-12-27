@@ -1,0 +1,32 @@
+<div class="login-container">
+    <form [formGroup]="form" *ngIf="!isLoggedIn" (ngSubmit)="onSubmit()">
+        <label for="username">Username: </label>
+        <input type="text" formControlName="username" id="username" required/><br/>
+        <div *ngIf="username?.invalid && (username?.dirty || username?.touched) || isEmptyUsername">
+            <div *ngIf="username?.errors?.['required']">
+                Username is required.
+            </div>
+            <div *ngIf="username?.errors?.['minlength']">
+                Username must be at least 6 characters long.
+            </div>
+        </div>
+        <label for="password">Password: </label>
+        <input type="password" formControlName="password" id="password" required/><br/>
+        <div *ngIf="password?.invalid && (password?.dirty || password?.touched) || isEmptyPassword">
+            <div *ngIf="password?.errors?.['required']">
+                Password is required.
+            </div>
+            <div *ngIf="password?.errors?.['minlength']">
+                Password must be at least 6 characters long.
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="button-submit">Login</button>
+        </div>
+        <div class="login-error">
+            <div *ngIf="isLoginFailed">
+                {{ errorMessage }}
+            </div>
+        </div>
+    </form>
+</div>

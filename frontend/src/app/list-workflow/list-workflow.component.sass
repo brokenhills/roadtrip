@@ -1,0 +1,45 @@
+.button-container
+        display: flex
+        justify-content: center
+        float: right
+        width:4em
+        height:1.6em
+        background-color: black
+        color:#FFF
+        // border-radius:50px
+        box-shadow: 2px 2px 3px #999
+        :hover
+                cursor: pointer
+        .button-create
+            filter: invert(99%) sepia(100%) saturate(0%) hue-rotate(45deg) brightness(102%) contrast(101%)
+        .button-create-text
+            font-size: 1.2em    
+
+table
+    border-collapse: collapse
+    min-width: 100%
+    grid-template-columns: minmax(150px, 1fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr)
+    font-family: monospace
+    font-size: 1.2em
+    thead
+        tr
+            display: contents
+            th
+                position: sticky
+                top: 0
+                background: black
+                text-align: left
+                font-weight: normal
+                font-size: 1.1em
+                color: white
+    tbody            
+        tr
+            margin-bottom: 2em
+            :hover
+                   text-decoration: underline
+                   cursor: pointer
+            td
+                padding: 15px
+                overflow: hidden
+                text-overflow: ellipsis
+                white-space: nowrap

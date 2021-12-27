@@ -1,0 +1,28 @@
+table
+    border-collapse: collapse
+    min-width: 100%
+    grid-template-columns: minmax(150px, 1fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr)
+    font-family: monospace
+    font-size: 1.2em
+    thead
+        tr
+            display: contents
+            th
+                position: sticky
+                top: 0
+                background: black
+                text-align: left
+                font-weight: normal
+                font-size: 1.1rem
+                color: white
+    tbody            
+        tr
+            margin-bottom: 2em
+            :hover
+                   text-decoration: underline
+                   cursor: pointer
+            td
+                padding: 15px
+                overflow: hidden
+                text-overflow: ellipsis
+                white-space: nowrap

@@ -1,0 +1,62 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Workflow">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element name="User" maxOccurs="1" minOccurs="1">
+			  <xs:complexType>
+				<xs:sequence>
+				  <xs:element type="xs:string" name="FirstName"/>
+				  <xs:element type="xs:string" name="LastName"/>
+				  <xs:element type="xs:string" name="MiddleName"/>
+				</xs:sequence>
+				<xs:attribute type="uuid" name="id" use="required"/>
+				<xs:attribute type="xs:string" name="username" use="required"/>
+			  </xs:complexType>
+			</xs:element>
+			<xs:element name="Department" maxOccurs="1" minOccurs="1">
+			  <xs:complexType>
+				<xs:simpleContent>
+				  <xs:extension base="xs:string">
+					<xs:attribute type="uuid" name="id"/>
+				  </xs:extension>
+				</xs:simpleContent>
+			  </xs:complexType>
+			</xs:element>
+			<xs:element type="xs:string" name="Content" maxOccurs="1" minOccurs="1"/>
+			<xs:element type="xs:string" name="Parent"/>
+			<xs:element name="Child">
+			  <xs:complexType>
+				<xs:sequence>
+				  <xs:element type="uuid" name="Id" maxOccurs="unbounded" minOccurs="0"/>
+				</xs:sequence>
+			  </xs:complexType>
+			</xs:element>
+		  </xs:sequence>
+		  <xs:attribute type="uuid" name="id" use="required"/>
+		  <xs:attribute type="xs:string" name="name" use="required"/>
+		  <xs:attribute type="xs:dateTime" name="created" use="required"/>
+		  <xs:attribute type="WorkflowType" name="type" use="required"/>
+		  <xs:attribute type="WorkflowState" name="state" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="uuid">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="WorkflowType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="TASK"/>
+          <xs:enumeration value="REQUIREMENT"/>
+          <xs:enumeration value="ISSUE"/>
+          <xs:enumeration value="BUG"/>
+        </xs:restriction>
+    </xs:simpleType>
+	<xs:simpleType name="WorkflowState">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NEW"/>
+          <xs:enumeration value="ACTIVE"/>
+          <xs:enumeration value="CLOSED"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

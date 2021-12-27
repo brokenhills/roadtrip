@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New department</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+    <div th:insert="common.html :: header"></div>
+    <div class="container">
+        <div th:insert="common.html :: sidebar"></div>
+        <div class="form-registration">
+            <form method="POST" th:action="@{/admin/departments}" id="departmentForm">
+                <label for="name">Title: </label>
+                <input type="text" name="name"/><br/>
+                <div class="menu-link">
+                    <input type="submit" value="Create"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div th:insert="common.html :: footer"></div>
+</body>
+</html>

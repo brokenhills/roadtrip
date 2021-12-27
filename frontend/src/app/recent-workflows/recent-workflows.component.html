@@ -1,0 +1,29 @@
+<div *ngIf="!isLoggedIn">
+    Welcome to Road Trip application! Please login.
+</div>
+<table *ngIf="workflows?.length > 0">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>State</th>
+            <th>Content</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let workflow of workflows">
+            <td>
+                {{workflow.name}}
+            </td>
+            <td>
+                {{workflow.type}}
+            </td>
+            <td>
+                {{workflow.state}}
+            </td>
+            <td>
+                {{workflow.content}}
+            </td>
+        </tr>
+    </tbody>
+</table>

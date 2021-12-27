@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <link th:href="@{/styles/common.css}" rel="stylesheet" />
+</head>
+    <body>
+    <div th:fragment="header">
+        <div class="horizontal-bar">
+            <h1>Admin panel</h1>
+            <form method="POST" th:action="@{/logout}">
+                <button type="submit" class="button-logout">
+                    <img class="image-logout" th:src="@{/svg/277-exit.svg}">
+                </button>
+            </form>
+        </div>
+        </br>
+    </div>
+    <aside th:fragment="sidebar">
+        <div class="menu-sidebar">
+            <a class="menu-link" th:href="@{/admin/users}">
+                <span>Users</span>
+            </a>
+            <a class="menu-link" th:href="@{/admin/workflows}">
+                <span>Workflows</span>
+            </a>
+            <a class="menu-link" th:href="@{/admin/departments}">
+                <span>Departments</span>
+            </a>
+            <a class="menu-link" th:href="@{/admin/groups}">
+                <span>Groups</span>
+            </a>
+        </div>
+    </aside>
+    <footer class="footer" th:fragment="footer">
+        <span>All rights reserved.</span>
+    </footer>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Groups</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+    <div th:insert="common.html :: header"></div>
+    <div class="container">
+        <div th:insert="common.html :: sidebar"></div>
+        <table class="user-container">
+            <thead>
+            <tr class="user-header">
+                <th class="header-item">Title</th>
+                <th class="header-item">Department</th>
+                <th class="header-item">Users</th>
+                <th class="header-item">Created</th>
+                <th class="header-item">Updated</th>
+            </tr>
+            </thead>
+            <tbody class="user-items">
+            <tr class="user-item" th:each="group : ${groups}">
+                <td class="item-value" th:text="${group.name}"></td>
+                <td class="item-value" th:text="${group.department}"></td>
+                <td class="item-value">
+                    <div th:each="user : ${group.users}">
+                        <span th:text="${user.username}"></span>
+                    </div>
+                </td>
+                <td class="item-value" th:text="${department.created}"></td>
+                <td class="item-value" th:text="${department.updated}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:insert="common.html :: footer"></div>
+</body>
+</html>

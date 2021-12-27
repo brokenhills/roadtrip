@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+    <div th:insert="common.html :: header"></div>
+    <div class="container">
+        <div th:insert="common.html :: sidebar"></div>
+        <table class="user-container">
+            <thead>
+            <tr class="user-header">
+                <th class="header-item">Title</th>
+                <th class="header-item">Users</th>
+                <th class="header-item">Groups</th>
+                <th class="header-item">Created</th>
+                <th class="header-item">Updated</th>
+                <th class="header-item">Edit</th>
+            </tr>
+            </thead>
+            <tbody class="user-items">
+            <tr class="user-item" th:each="department : ${departments}">
+                <td class="item-value" th:text="${department.name}"></td>
+                <td class="item-value">
+                    <div th:each="user : ${department.users}">
+                        <span th:text="${user.username}"></span>
+                    </div>
+                </td>
+                <td class="item-value" th:text="${department.groups}">
+                    <div th:each="group : ${department.groups}">
+                        <span th:text="${group.name}"></span>
+                    </div>
+                </td>
+                <td class="item-value" th:text="${department.created}"></td>
+                <td class="item-value" th:text="${department.updated}"></td>
+                <td class="item-value">
+                    <a class="button-modify" th:href="@{/admin/departments/{id}(id=${department.id})}">
+                        <img th:src="@{/svg/006-pencil.svg}">
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="button-create" href="/admin/departments/new">
+            <img class="create-img" th:src="@{/svg/116-user-plus.svg}">
+        </a>
+    </div>
+    <div th:insert="common.html :: footer"></div>
+</body>
+</html>

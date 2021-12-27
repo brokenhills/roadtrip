@@ -1,0 +1,20 @@
+<div class="menu-container">
+    <div class="menu-link">
+      <h2><span [routerLink]="['home']">Home</span></h2>
+    </div>
+    <div class="menu-link" *ngIf="isLoggedIn">
+      <h2><span [routerLink]="['list']">Workflows</span></h2>
+    </div>
+    <div class="menu-link" *ngIf="isLoggedIn">
+      <h2><span [routerLink]="['user']">Profile</span></h2>
+    </div>
+    <div class="menu-link" *ngIf="!isLoggedIn">
+        <h2><span [routerLink]="['login']">Login</span></h2>
+    </div>
+    <div class="menu-link" *ngIf="isLoggedIn">
+        <h2><span (click)="logout()">LogOut</span></h2>
+    </div>
+  </div>
+  <div class="main-container">
+    <router-outlet></router-outlet>
+  </div>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Department</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+    <div th:insert="common.html :: header"></div>
+    <div class="container">
+        <div th:insert="common.html :: sidebar"></div>
+        <div class="form-user-modification">
+            <form method="POST" th:object="${department}" th:action="@{/admin/department}">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                <input type="hidden" name="id" th:value="${department.id}"/>
+                <label for="name">Title: </label>
+                <input name="name" type="text" th:value="${department.name}"/>
+                <p th:if="${#fields.hasErrors('name')}">Title is required</p>
+                <br/>
+                <label for="users">Users: </label>
+                <input type="text" name="users" th:value="${department.users}"/><br/>
+                <label for="groups">Groups: </label>
+                <input type="text" name="groups" th:value="${department.groups}"/><br/>
+                <button type="submit" name="submit" class="button-save" value="Save">Save</button>
+                <br/>
+            </form>
+        </div>
+    </div>
+    <div th:insert="common.html :: footer"></div>
+</body>
+</html>

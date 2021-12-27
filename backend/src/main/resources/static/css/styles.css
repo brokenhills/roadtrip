@@ -1,0 +1,145 @@
+.form-registration {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-around;
+    margin: 0 auto;
+    font-family: monospace;
+    font-size: 1.5em;
+}
+
+.form-user-modification {
+    display: flex;
+    flex-direction: row;
+    width: 36%;
+    justify-content: space-around;
+    font-family: monospace;
+    font-size: 1em;
+}
+
+.menu-link {
+    color: inherit;
+    cursor: pointer;
+}
+
+.menu-link:hover {
+    text-decoration: underline;
+}
+
+.horizontal-bar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0 auto;
+    font-family: monospace;
+    font-size: 1em;
+}
+
+.button-logout {
+    border: none;
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.button-logout:hover {
+    background: #eee;
+}
+
+.image-logout {
+    width: 2em;
+}
+
+.button-save {
+    border: none;
+    background-color: inherit;
+    font-family: monospace;
+    font-size: 1.2em;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+}
+
+.button-save:hover {
+    background: #eee;
+}
+
+.button-create {
+    border: none;
+    background-color: inherit;
+    font-family: monospace;
+    font-size: 1.2em;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+}
+
+.create-img {
+    margin-left: 1em;
+    height: 1.3em;
+    width: 1.3em;
+}
+
+.button-modify {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.menu-sidebar {
+    display: grid;
+    width: 10em;
+    font-family: monospace;
+    font-size: 1.4em;
+}
+
+.container {
+    display: inline-flex;
+}
+
+.user-container {
+    border-collapse: collapse;
+    min-width: 100%;
+    grid-template-columns: minmax(150px, 1fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr);
+    font-family: monospace;
+    font-size: 1.2em;
+}
+
+.user-item {
+    margin-bottom: 2em;
+    :hover {
+       text-decoration: underline;
+       cursor: pointer;
+    }
+}
+
+.user-header, .user-items {
+    display: contents;
+}
+
+.header-item {
+    position: sticky;
+    top: 0;
+    background: black;
+    text-align: left;
+    font-weight: normal;
+    font-size: 1.1em;
+    color: white;
+}
+
+.item-value {
+    padding: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.footer {
+    height: 3em;
+    position: fixed;
+    bottom: 0em;
+    color: gray;
+}

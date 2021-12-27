@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8">
+        <title>Users</title>
+        <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    </head>
+    <body>
+        <div th:insert="common.html :: header"></div>
+        <div class="container">
+            <div th:insert="common.html :: sidebar"></div>
+            <table class="user-container">
+                <thead>
+                    <tr class="user-header">
+                        <th class="header-item">Username</th>
+                        <th class="header-item">Last name</th>
+                        <th class="header-item">First name</th>
+                        <th class="header-item">Middle name</th>
+                        <th class="header-item">Enabled</th>
+                        <th class="header-item">Locked</th>
+                        <th class="header-item">Valid until</th>
+                        <th class="header-item">Department</th>
+                        <th class="header-item">Role</th>
+                        <th class="header-item">Edit</th>
+                    </tr>
+                </thead>
+                <tbody class="user-items">
+                    <tr class="user-item" th:each="user : ${users}">
+                        <td class="item-value" th:text="${user.username}"></td>
+                        <td class="item-value" th:text="${user.lastName}"></td>
+                        <td class="item-value" th:text="${user.firstName}"></td>
+                        <td class="item-value" th:text="${user.middleName}"></td>
+                        <td class="item-value" th:text="${user.isEnabled}"></td>
+                        <td class="item-value" th:text="${user.isLocked}"></td>
+                        <td class="item-value" th:text="${user.validUntil}"></td>
+                        <td class="item-value" th:text="${user.department.name}"></td>
+                        <td class="item-value" th:text="${user.role.type}"></td>
+                        <td class="item-value">
+                            <a class="button-modify" th:href="@{/admin/modify/user/{id}(id=${user.id})}">
+                                <img th:src="@{/svg/006-pencil.svg}">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="button-create" href="/admin/users/new">
+                <img class="create-img" th:src="@{/svg/116-user-plus.svg}">
+            </a>
+        </div>
+        <div th:insert="common.html :: footer"></div>
+    </body>
+</html>
