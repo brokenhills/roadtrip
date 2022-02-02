@@ -10,6 +10,7 @@ import { Observable, throwError  } from 'rxjs';
 export class ApiService {
 
   API_URL = environment.apiUrl;
+  UPLOAD_URL = environment.uploadUrl;
 
   HEADERS: HttpHeaders = new HttpHeaders({
     'Access-Control-Allow-Origin': '*'
@@ -24,7 +25,7 @@ export class ApiService {
 
   public login(data: {}): Observable<any> {
     let headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': 'https://localhost:4200'
     });
     return this.httpClient.post(`${this.API_URL}/auth/login`, data, {headers: headers}).pipe(
       map((response: Response | any) => {
@@ -102,6 +103,40 @@ export class ApiService {
     });
     return this.httpClient
     .get(`${this.API_URL}/users/search/findByUsername?username=${username}`).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  public upload(workflowId: string, file: File): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Disposition': `attachment; filename=${file.name}`
+    });
+    let data: FormData = new FormData();
+    data.append('workflowId', workflowId);
+    data.append('file', file);
+    return this.httpClient
+    .post(`${this.UPLOAD_URL}/upload`, data, { headers: headers }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  public getFiles(workflowId: string): Observable<any> {
+    return this.httpClient.get(`${this.UPLOAD_URL}/workflow/${workflowId}`).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  public deleteFile(id: string): Observable<any> {
+    return this.httpClient.delete(`${this.UPLOAD_URL}/file/${id}`).pipe(
       map((response: any) => {
         return response;
       }),

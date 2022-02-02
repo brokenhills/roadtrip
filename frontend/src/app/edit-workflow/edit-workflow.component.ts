@@ -30,6 +30,11 @@ export class EditWorkflowComponent implements OnInit {
     'CLOSED',
   ]
 
+  workflowFiles: Array<any> = [];
+  files: Array<File> = [];
+
+  workflowId: string = '';
+
   constructor(private tokenService: TokenStorageService, private api: ApiService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
@@ -44,18 +49,57 @@ export class EditWorkflowComponent implements OnInit {
     this.api.getAny(this.workflowUrl).subscribe(data => {
       this.workflow = data;
       if (this.workflow) {
+        this.workflowId = this.workflowUrl.split("/").pop() || '';
         this.form.get('name')?.setValue(this.workflow.name);
         this.form.get('type')?.setValue(this.workflow.type);
         this.form.get('state')?.setValue(this.workflow.state);
         this.form.get('content')?.setValue(this.workflow.content);
         this.form.get('parent')?.setValue(this.workflow.parent);
         this.form.get('child')?.setValue(this.workflow.child);
+        if (this.workflowId) {
+          this.api.getFiles(this.workflowId).subscribe(
+            (data) => this.workflowFiles = data,
+            (error) => console.log(error)
+          );
+        }
+        
       }
     })
   }
 
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.files.push(file);
+    }
+    console.log(this.files);
+  }
+
+  uploadFiles(workflowId: string) {
+    this.files.forEach(file => this.api.upload(workflowId, file).subscribe(
+      (data) => console.log(data),
+      (error) => console.log(error)
+    ));
+  }
+
+  onRemove(index: number) {
+    this.files.splice(index, 1);
+    console.log(this.files);
+  }
+
+  onRemoveWorkflowFile(id: string) {
+    this.api.deleteFile(id).subscribe(
+      (data) => console.log(data),
+      (error) => console.log(error)
+    );
+  }
+
   onSubmit() {
-    this.api.putAny(this.workflowUrl, this.form.value).subscribe(data => console.log(data));
+    this.api.putAny(this.workflowUrl, this.form.value)
+      .subscribe(
+        (data) => this.uploadFiles(this.workflowId),
+        (error) => console.log(error)
+      );
     this.saveEvent.emit(true);
     window.location.reload();
   }
@@ -64,5 +108,4 @@ export class EditWorkflowComponent implements OnInit {
     this.cancelEvent.emit(true);
     window.location.reload();
   }
-
 }

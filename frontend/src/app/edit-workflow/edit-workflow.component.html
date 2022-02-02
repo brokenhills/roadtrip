@@ -1,5 +1,5 @@
 <div class="workflow-container">
-    <form class="create-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form class="create-form" [formGroup]="form">
         <div class="header-container">
             <label for="name">Title: </label>
             <input type="text" formControlName="name" id="name" required>
@@ -27,10 +27,25 @@
                 <input type="search" formControlName="parent" id="parent">
                 <label for="child">Child: </label>
                 <input type="search" formControlName="child" id="child">
+                <label for="files">Files: </label>
+                <input type="file" (change)="onFileSelected($event)" #fileUpload>
+                <button (click)="fileUpload.click()">Upload</button>
+                <div class=files *ngIf="files.length > 0">
+                    <div *ngFor="let file of files; let i = index">
+                        <div>{{ file.name }}</div>
+                        <button (click)="onRemove(i)">Remove</button>    
+                    </div>
+                </div>
+                <div *ngIf='workflowFiles.length > 0'>
+                    <div *ngFor="let file of workflowFiles; let i = index">
+                        <div>{{ file.name }}</div>
+                        <button (click)="onRemoveWorkflowFile(file.id)">Remove</button>    
+                    </div>
+                </div>
             </div>
         </div>
     <div class="button-container">
-        <button class="button-submit">Save</button>
+        <button class="button-submit" (click)="onSubmit()">Save</button>
         <button class="button-cancel" (click)="onCancel()">Cancel</button>
     </div>    
     </form>
