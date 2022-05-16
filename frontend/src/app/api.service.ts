@@ -37,7 +37,7 @@ export class ApiService {
 
   public getRecentWorkflows(): Observable<any>  {
     return this.httpClient
-    .get(`${this.API_URL}/workflows/recent`).pipe(
+    .get(`${this.API_URL}/board`).pipe(
       map((response: any) => {
         return response;
       }),
@@ -50,7 +50,7 @@ export class ApiService {
       'Access-Control-Allow-Origin': 'https://localhost:4200'
     });
     return this.httpClient
-    .get(`${this.API_URL}/workflows`, {headers}).pipe(
+    .get(`${this.API_URL}/workflows?sort=updated,desc`, {headers}).pipe(
       map((response: any) => {
         return response;
       }),

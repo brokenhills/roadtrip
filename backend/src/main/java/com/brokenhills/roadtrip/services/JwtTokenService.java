@@ -3,22 +3,52 @@ package com.brokenhills.roadtrip.services;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.*;
+import java.security.cert.CertificateException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+@Slf4j
 @Component
 public class JwtTokenService {
 
-    public static final long JWT_TOKEN_VALIDITY = 5*60*60;
+    private static final long JWT_TOKEN_VALIDITY = 5*60*60;
 
-    @Value("${jwt.secret}")
-    public String secret;
+    @Value("${key-store.path}")
+    private String keystorePath;
+    @Value("${key-store.password}")
+    private String keystorePassword;
+    @Value("${key-store.alias}")
+    private String keystoreAlias;
+
+    @Bean
+    public Key getJwtKey() {
+        try {
+            KeyStore keyStore = KeyStore.getInstance("PKCS12");
+            keyStore.load(Files.newInputStream(Paths.get(keystorePath)), keystorePassword.toCharArray());
+            byte[] keyBytes = keyStore.getKey(keystoreAlias, keystorePassword.toCharArray()).getEncoded();
+            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            return keyFactory.generatePrivate(keySpec);
+        } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException | KeyStoreException
+                | CertificateException | UnrecoverableKeyException e) {
+            log.error("Error creating jwt private key: {}", e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
+    }
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
@@ -65,7 +95,7 @@ public class JwtTokenService {
     }
 
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(getJwtKey()).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -83,6 +113,6 @@ public class JwtTokenService {
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
+                .signWith(SignatureAlgorithm.RS512, getJwtKey()).compact();
     }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { TokenStorageService } from '../token-storage.service';
 
@@ -17,6 +16,7 @@ export class CreateWorkflowComponent implements OnInit {
   cancelEvent: EventEmitter<boolean> = new EventEmitter();
   @Output()
   saveEvent: EventEmitter<boolean> = new EventEmitter();
+  
   form: FormGroup = new FormGroup({});
   isLoggedIn: boolean = false;
   role: string = '';
@@ -30,12 +30,12 @@ export class CreateWorkflowComponent implements OnInit {
   workflowStates: Array<string> = [
     'NEW',
   ]
+  workflows: any;
 
   constructor(
     private fb: FormBuilder, 
     private tokenStorage: TokenStorageService,
-    private api: ApiService, 
-    private router: Router) { }
+    private api: ApiService) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -54,14 +54,14 @@ export class CreateWorkflowComponent implements OnInit {
   }
 
   onSubmit() {
-    this.api.createWorkflow(this.form.value).subscribe(data => console.log(data));
-    this.saveEvent.emit(true);
-    window.location.reload();
+    this.api.createWorkflow(this.form.value).subscribe(() => {
+      this.saveEvent.emit(true);
+    });
+
   }
 
   onCancel() {
     this.cancelEvent.emit(true);
-    window.location.reload();
   }
 
 }

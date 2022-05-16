@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let workflow of workflows" (click)="onEditWorkflow(workflow)" [routerLink]="['edit']">
+            <tr *ngFor="let workflow of workflows" (click)="onEditWorkflow(workflow)">
                 <td>
                     {{workflow.name}}
                 </td>
@@ -25,8 +25,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="button-container" (click)="onCreateWorkflow()" [routerLink]="['create']">
-        <!-- <img class="button-create" src="/assets/svg/267-plus.svg"> -->
+    <div class="button-container" (click)="onCreateWorkflow()">
         <span class="button-create-text">New</span>
     </div>
 </div>

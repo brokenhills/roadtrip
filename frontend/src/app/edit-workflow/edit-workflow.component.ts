@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
-import { TokenStorageService } from '../token-storage.service';
 
 @Component({
   selector: 'app-edit-workflow',
@@ -35,7 +33,7 @@ export class EditWorkflowComponent implements OnInit {
 
   workflowId: string = '';
 
-  constructor(private tokenService: TokenStorageService, private api: ApiService, private fb: FormBuilder, private router: Router) { }
+  constructor(private api: ApiService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -72,7 +70,6 @@ export class EditWorkflowComponent implements OnInit {
     if (file) {
       this.files.push(file);
     }
-    console.log(this.files);
   }
 
   uploadFiles(workflowId: string) {
@@ -84,7 +81,6 @@ export class EditWorkflowComponent implements OnInit {
 
   onRemove(index: number) {
     this.files.splice(index, 1);
-    console.log(this.files);
   }
 
   onRemoveWorkflowFile(id: string) {
@@ -97,15 +93,15 @@ export class EditWorkflowComponent implements OnInit {
   onSubmit() {
     this.api.putAny(this.workflowUrl, this.form.value)
       .subscribe(
-        (data) => this.uploadFiles(this.workflowId),
-        (error) => console.log(error)
+        () => {
+          this.uploadFiles(this.workflowId);
+          this.saveEvent.emit(true);
+        },
+        (error) => console.log(error),
       );
-    this.saveEvent.emit(true);
-    window.location.reload();
   }
 
   onCancel() {
     this.cancelEvent.emit(true);
-    window.location.reload();
   }
 }

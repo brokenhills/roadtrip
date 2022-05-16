@@ -1,29 +1,31 @@
-<div *ngIf="!isLoggedIn">
-    Welcome to Road Trip application! Please login.
+<div class="state-container" *ngIf="workflows && !showEditForm">
+    <div class="state-item" *ngFor="let state of states">
+        <div class="state-title">{{ state }}</div>
+            <div class="workflow-container title">
+                <div>Name</div>
+                <div>Type</div>
+                <div>State</div>
+                <div>Updated</div>
+            </div>
+            <div class="workflow-container item" *ngFor="let workflow of workflows[state]" (click)="onEditWorkflow(workflow.id)">
+                <div>
+                    {{workflow.name}}
+                </div>
+                <div>
+                    {{workflow.type}}
+                </div>
+                <div>
+                    {{workflow.state}}
+                </div>
+                <div>
+                    {{workflow.updated}}
+                </div>
+            </div>
+    </div>
 </div>
-<table *ngIf="workflows?.length > 0">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>State</th>
-            <th>Content</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let workflow of workflows">
-            <td>
-                {{workflow.name}}
-            </td>
-            <td>
-                {{workflow.type}}
-            </td>
-            <td>
-                {{workflow.state}}
-            </td>
-            <td>
-                {{workflow.content}}
-            </td>
-        </tr>
-    </tbody>
-</table>
+<app-edit-workflow 
+    *ngIf="showEditForm" 
+    [workflowUrl]="workflowUrl"
+    (saveEvent)="onApproveEdit($event)"
+    (cancelEvent)="onCancelEdit($event)">
+</app-edit-workflow>

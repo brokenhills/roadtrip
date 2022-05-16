@@ -1,4 +1,4 @@
-<div class="user-profile-container">
+<div *ngIf="isLoggedIn" class="user-profile-container">
     <div>
         <label>Username:</label>
         <span>{{ user.username }}</span>

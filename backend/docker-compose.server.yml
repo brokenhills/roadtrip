@@ -1,0 +1,9 @@
+version: '3'
+services:
+  roadtrip:
+    image: roadtrip
+    volumes:
+      - /c/temp/application.properties:/usr/src/application.properties
+      - /c/temp/serverkeys.p12:/usr/src/serverkeys.p12
+    ports:
+      - '8090:8090'

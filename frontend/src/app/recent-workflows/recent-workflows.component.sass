@@ -1,28 +1,27 @@
-table
-    border-collapse: collapse
-    min-width: 100%
-    grid-template-columns: minmax(150px, 1fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr) minmax(150px, 1.67fr)
+.state-container
+    display: inline-grid
+    grid-template-columns: 1fr 1fr 1fr
+    grid-gap: 1em
     font-family: monospace
-    font-size: 1.2em
-    thead
-        tr
-            display: contents
-            th
-                position: sticky
-                top: 0
-                background: black
-                text-align: left
-                font-weight: normal
-                font-size: 1.1rem
-                color: white
-    tbody            
-        tr
-            margin-bottom: 2em
-            :hover
-                   text-decoration: underline
-                   cursor: pointer
-            td
-                padding: 15px
-                overflow: hidden
-                text-overflow: ellipsis
-                white-space: nowrap
+    .state-item
+        border: 1px solid black
+        padding: 1em
+        .state-title
+            font-size: 1.1em
+            font-weight: bold
+            padding-bottom: 0.5em
+        .workflow-container
+            display: grid
+            grid-template-columns: 15em 5em 5em 15em
+            column-gap: 1em
+        .title    
+            color: white
+            background-color: black
+            padding-left: 0.2em
+
+        .item
+            padding: 0.1em 0 0 0.2em
+            word-break: break-word
+            :hover 
+                cursor: pointer
+                text-decoration: underline

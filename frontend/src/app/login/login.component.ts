@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { TokenStorageService } from '../token-storage.service';
 
@@ -13,17 +12,19 @@ export class LoginComponent implements OnInit {
 
   result: any;
   form: FormGroup = new FormGroup({});
-  isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   role: string = '';
   isEmptyUsername = false;
   isEmptyPassword = false;
 
+  isLoggedIn = false;
+
+  @Output()
+  loginEvent: EventEmitter<boolean> = new EventEmitter();
+
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
     private api: ApiService,
     private tokenStorage: TokenStorageService) { }
 
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.role = this.tokenStorage.getUser().role;
-        this.reloadPage();
+        this.loginEvent.emit(true);
       },
       err => {
         this.errorMessage = err.error.message || err.message;
@@ -66,7 +67,4 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  reloadPage(): void {
-    window.location.reload();
-  }
 }

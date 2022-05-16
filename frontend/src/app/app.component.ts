@@ -1,37 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TokenStorageService } from './token-storage.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   title = 'frontend';
 
-  private role: string = '';
   isLoggedIn = false;
-  showUserBoard = false;
-  showAdminBoard = false;
-  username?: string;
+  isLoggedOut = true;
 
-  constructor(private tokenStorageService: TokenStorageService) {}
+  constructor(private tokenStorage: TokenStorageService, private router: Router) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.role = user.role;
-      this.showAdminBoard = this.role === 'ROLE_USER';
-      this.showAdminBoard = this.role === 'ROLE_ADMIN';
-      this.username = user.username;
-    }
+    this.isLoggedIn = !!this.tokenStorage.getToken();
   }
 
-  logout(): void {
-    this.tokenStorageService.logout();
-    window.location.reload();
+  onLogin(event: boolean): void {
+    this.isLoggedIn = event;
+    this.router.navigate(['/home']);
+  }
+
+  onLogout(event: boolean): void {
+    this.isLoggedIn = false;
+    this.isLoggedOut = event;
   }
 
 }

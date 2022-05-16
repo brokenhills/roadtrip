@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { authInterceptorProviders } from './auth.interceptor';
 import { EditWorkflowComponent } from './edit-workflow/edit-workflow.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EditWorkflowComponent } from './edit-workflow/edit-workflow.component';
     LoginComponent,
     ListWorkflowComponent,
     UserProfileComponent,
-    EditWorkflowComponent
+    EditWorkflowComponent,
+    TopBarComponent
   ],
   imports: [
     BrowserModule,

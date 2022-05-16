@@ -1,23 +1,24 @@
 package com.brokenhills.roadtrip.clients;
 
-import com.brokenhills.roadtrip.services.ExternalServicesProps;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
 public class XmlServiceClient {
 
-    private final RestTemplate restTemplate;
-    private final ExternalServicesProps servicesProps;
+    @Value("${services.xmlServiceUrl}")
+    private String xmlServiceUrl;
 
-    public XmlServiceClient(RestTemplate restTemplate, ExternalServicesProps servicesProps) {
+    private final RestTemplate restTemplate;
+
+    public XmlServiceClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.servicesProps = servicesProps;
     }
 
     public String getXmlWithName(String name) {
         return restTemplate.getForObject(
-                String.format("%s/private/xml/{id}", servicesProps.getXmlServiceUrl()),
+                String.format("%s/private/xml/{id}", xmlServiceUrl),
                 String.class,
                 name);
     }

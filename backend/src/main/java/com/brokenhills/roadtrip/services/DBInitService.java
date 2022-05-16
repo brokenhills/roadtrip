@@ -32,12 +32,21 @@ public class DBInitService {
     }
 
     public void createAdminWithDepartment(String admin, String password, String department) {
-        Department dep = Department.builder().name(department).build();
-        UserRole role = UserRole.builder().name("Administrator").type(ADMIN.name()).department(dep).build();
+        Department dep = Department.builder()
+                .name(department)
+                .build();
+        UserRole role = UserRole.builder()
+                .name("Administrator")
+                .type(ADMIN.name())
+                .department(dep)
+                .build();
         User user = User.builder()
                 .username(admin)
                 .password(encoder.encode(password))
-                .isEnabled(true).department(dep).role(role).build();
+                .isEnabled(true)
+                .department(dep)
+                .role(role)
+                .build();
         departmentRepository.save(dep);
         roleRepository.save(role);
         userRepository.save(user);

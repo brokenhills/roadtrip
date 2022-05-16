@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { ApiService } from '../api.service';
 import { TokenStorageService } from '../token-storage.service';
 
@@ -9,15 +10,39 @@ import { TokenStorageService } from '../token-storage.service';
 })
 export class RecentWorkflowsComponent implements OnInit {
 
+  API_URL = environment.apiUrl;
+
+  states: Array<string> = [ 'NEW', 'ACTIVE', 'CLOSED' ];
   workflows: any;
   isLoggedIn: boolean = false;
+  showEditForm: boolean = false;
+  workflowUrl: string = '';
 
-  constructor(private api: ApiService, private tokenStorageService: TokenStorageService) { }
+  constructor(private api: ApiService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    this.isLoggedIn = !!this.tokenStorage.getToken();
+    this.getRecentWorkflows();
+  }
+
+  getRecentWorkflows(): void {
     if (this.isLoggedIn) {
-      this.api.getRecentWorkflows().subscribe(data => this.workflows = data._embedded.workflows);
-    } 
+      this.api.getRecentWorkflows().subscribe(data => this.workflows = data);
+    }
+  }
+
+  onEditWorkflow(id: string) {
+    this.showEditForm = true;
+    this.workflowUrl = `${this.API_URL}/workflows/${id}`
+  }
+
+  onApproveEdit(event: boolean) {
+    this.showEditForm = !event;
+    this.getRecentWorkflows();
+  }
+
+  onCancelEdit(event: boolean) {
+    this.showEditForm = !event;
+    this.getRecentWorkflows();
   }
 }

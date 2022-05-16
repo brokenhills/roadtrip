@@ -3,19 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateWorkflowComponent } from './create-workflow/create-workflow.component';
 import { EditWorkflowComponent } from './edit-workflow/edit-workflow.component';
 import { ListWorkflowComponent } from './list-workflow/list-workflow.component';
-import { LoginComponent } from './login/login.component';
 import { RecentWorkflowsComponent } from './recent-workflows/recent-workflows.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   {
-    path:  '',
-    redirectTo:  'home',
-    pathMatch:  'full',
-  },
-  {
-    path:  'login',
-    component:  LoginComponent,
+    path: 'logout',
+    redirectTo: '/',
   },
   {
     path:  'home',
