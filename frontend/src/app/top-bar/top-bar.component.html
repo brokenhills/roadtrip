@@ -1,0 +1,7 @@
+<div *ngIf="isLoggedIn" class="menu-container">
+  <div class="menu-link" *ngFor="let item of menuItems">
+    <h2><span (click)="item.onClick()" 
+              [routerLink]="[item.route]" 
+              routerLinkActive="active">{{ item.title }}</span></h2>
+  </div>
+</div>
