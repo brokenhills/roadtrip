@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -42,7 +42,7 @@ export class EditWorkflowComponent implements OnInit {
       state: new FormControl(null, Validators.required),
       content: new FormControl(null, Validators.required),
       parent: new FormControl(null),
-      child: new FormControl(null),
+      child: new FormArray([]),
     });
     this.api.getAny(this.workflowUrl).subscribe(data => {
       this.workflow = data;
@@ -60,7 +60,6 @@ export class EditWorkflowComponent implements OnInit {
             (error) => console.log(error)
           );
         }
-        
       }
     })
   }

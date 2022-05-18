@@ -18,7 +18,8 @@
                             <label>{{ state }}</label>
                         </option>
                     </datalist>
-            </div>    
+            </div>
+            <label for="content">Content: </label>
         </div>
         <div class="content-container">
             <textarea class="content" type="text" formControlName="content" id="content" required></textarea>
@@ -29,9 +30,9 @@
                 <input type="search" formControlName="child" id="child">
             </div>
         </div>
-    <div class="button-container">
-        <button class="button-submit">Save</button>
-        <button class="button-cancel" (click)="onCancel()">Cancel</button>
-    </div>    
+        <div class="button-container">
+            <button class="button-submit">Save</button>
+            <button class="button-cancel" (click)="onCancel()">Cancel</button>
+        </div>    
     </form>
 </div>

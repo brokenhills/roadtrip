@@ -1,6 +1,7 @@
 package com.brokenhills.roadtrip.models;
 
 
+import com.brokenhills.roadtrip.entities.Project;
 import com.brokenhills.roadtrip.entities.User;
 import com.brokenhills.roadtrip.entities.Workflow;
 import lombok.Getter;
@@ -32,6 +33,8 @@ public class WorkflowModel extends RepresentationModel<WorkflowModel> {
     private final List<UUID> child;
     @Getter
     private final User user;
+    @Getter
+    private final Project project;
 
     public WorkflowModel(Workflow workflow) {
         this.name = workflow.getName();
@@ -43,5 +46,6 @@ public class WorkflowModel extends RepresentationModel<WorkflowModel> {
         this.parent = workflow.getParent();
         this.child = workflow.getChild();
         this.user = workflow.getUser();
+        this.project = workflow.getProject();
     }
 }

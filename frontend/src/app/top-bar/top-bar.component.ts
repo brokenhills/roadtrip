@@ -16,7 +16,8 @@ export class TopBarComponent {
   username?: string;
 
   menuItems: Array<any> = [
-    { title: 'Home', route: '/home', onClick: () =>  '' },
+    { title: 'Boards', route: '/home', onClick: () =>  '' },
+    { title: 'Projects', route: '/projects', onClick: () =>  '' },
     { title: 'Workflows', route: '/list', onClick: () =>  '' },
     { title: 'Profile', route: '/user', onClick: () =>  '' },
     { title: 'LogOut', route: '/logout', onClick: () => this.logout() },

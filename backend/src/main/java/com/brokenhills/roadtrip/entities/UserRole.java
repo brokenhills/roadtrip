@@ -27,16 +27,20 @@ public class UserRole extends TimestampedModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private UUID id;
+
     @Column(nullable = false)
     @NotEmpty
     @ValueOfEnum(enumClass = RoleType.class)
     private String type;
+
     private String name;
-    @JsonBackReference
+
+    @JsonBackReference(value = "roleDepartment")
     @ManyToOne(fetch = FetchType.LAZY,
             targetEntity = Department.class)
     private Department department;
-    @JsonManagedReference
+
+    @JsonManagedReference(value = "userRole")
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "role",
             targetEntity = User.class)

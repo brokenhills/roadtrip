@@ -24,31 +24,43 @@ public class User extends TimestampedModel implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private UUID id;
+
     @Column(nullable = false)
     @NotBlank
     private String username;
+
     @Column(nullable = false)
     @NotBlank
     private String password;
+
     private String firstName;
+
     private String middleName;
+
     private String lastName;
+
     private boolean isEnabled;
+
     private boolean isLocked;
+
     private Instant validUntil;
-    @JsonBackReference
+
+    @JsonBackReference(value = "department")
     @ManyToOne(targetEntity = Department.class)
     @JoinColumn(nullable = false)
     private Department department;
-    @JsonManagedReference
+
+    @JsonManagedReference(value = "workflowUser")
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "user",
             orphanRemoval = true)
     private Set<Workflow> workflows;
-    @JsonBackReference
+
+    @JsonBackReference(value = "userRole")
     @ManyToOne(targetEntity = UserRole.class)
     @JoinColumn(nullable = false)
     private UserRole role;
+
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = UserGroup.class)
     @JoinTable(
             name = "user_groups",

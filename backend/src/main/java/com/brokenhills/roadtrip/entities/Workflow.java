@@ -28,27 +28,38 @@ public class Workflow extends TimestampedModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private UUID id;
+
     @Column(nullable = false)
     @NotEmpty
     private String name;
+
     @Column(nullable = false)
     @NotEmpty
     @ValueOfEnum(enumClass = WorkflowType.class)
     private String type;
+
     private String content;
+
     @Column(nullable = false)
     @NotEmpty
     @ValueOfEnum(enumClass = WorkflowState.class)
     private String state;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Workflow parent;
+
     @Type(type = "list-array")
     @Column(columnDefinition = "uuid[]")
     private List<UUID> child;
-    @JsonBackReference
+
+    @JsonBackReference(value = "workflowUsers")
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(nullable = false)
     private User user;
+
+    @JsonBackReference(value = "project")
+    @ManyToOne(targetEntity = Project.class)
+    private Project project;
 
     public enum WorkflowType {
         TASK,

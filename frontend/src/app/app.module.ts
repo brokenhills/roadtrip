@@ -13,6 +13,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { authInterceptorProviders } from './auth.interceptor';
 import { EditWorkflowComponent } from './edit-workflow/edit-workflow.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { ListProjectComponent } from './list-project/list-project.component';
+import { CreateProjectComponent } from './create-project/create-project.component';
+import { EditProjectComponent } from './edit-project/edit-project.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     ListWorkflowComponent,
     UserProfileComponent,
     EditWorkflowComponent,
-    TopBarComponent
+    TopBarComponent,
+    ListProjectComponent,
+    CreateProjectComponent,
+    EditProjectComponent
   ],
   imports: [
     BrowserModule,

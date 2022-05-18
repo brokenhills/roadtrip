@@ -97,6 +97,19 @@ export class ApiService {
     );
   }
 
+  public createProject(body: any): Observable<any> {
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': 'https://localhost:4200'
+    });
+    return this.httpClient
+    .post(`${this.API_URL}/projects`, body, {headers: headers}).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   public getUser(username: string): Observable<any> {
     let headers = new HttpHeaders({
       'Access-Control-Allow-Origin': 'https://localhost:4200'

@@ -1,0 +1,27 @@
+<div class="project-container">
+    <form class="create-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="header-container">
+            <label for="name">Title: </label>
+            <input type="text" formControlName="name" id="name" required>
+            <label for="dateFrom">DateFrom: </label>
+            <input type="datetime-local" formControlName="dateFrom" id="dateFrom" required>
+            <label for="dateTo">DateTo: </label>
+            <input type="datetime-local" formControlName="dateTo" id="dateTo" required>
+            <label for="description">Description: </label>
+        </div>
+        <div class="content-container">
+            
+            <textarea class="content" type="text" formControlName="description" id="description" required></textarea>
+            <div class="links-container">
+                <label for="department">Department: </label>
+                <input type="text" formControlName="department" id="department">
+                <label for="workflows">Workflows: </label>
+                <input type="text" formControlName="workflows" id="workflows">
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="button-submit">Save</button>
+            <button class="button-cancel" (click)="onCancel()">Cancel</button>
+        </div>  
+    </form>
+</div>

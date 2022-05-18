@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { TokenStorageService } from '../token-storage.service';
 
@@ -44,7 +44,7 @@ export class CreateWorkflowComponent implements OnInit {
       state: new FormControl(null, Validators.required),
       content: new FormControl(null, Validators.required),
       parent: new FormControl(null),
-      child: new FormControl(null),
+      child: new FormArray([]),
       user: new FormControl(this.currentUserUrl, Validators.required),
     });
     if (this.tokenStorage.getToken()) {

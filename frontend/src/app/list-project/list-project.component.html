@@ -1,0 +1,24 @@
+<div class="projects-container" *ngIf="projects && isShowList">
+    <div class="project-items title">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Department</div>
+        <div>DateFrom</div>
+        <div>DateTo</div>
+    </div>
+    <div class="project-items item" *ngFor="let project of projects">
+        <div>{{ project.name }}</div>
+        <div>{{ project.description }}</div>
+        <div>{{ project.department }}</div>
+        <div>{{ project.dateFrom }}</div>
+        <div>{{ project.dateTo }}</div>
+    </div>
+    <div class="button-container" (click)="onCreateProject()">
+        <span class="button-create-text">New</span>
+    </div>
+</div>
+<app-create-project 
+    *ngIf="showCreateForm"
+    (saveEvent)="onApproveSave($event)"
+    (cancelEvent)="onCancelSave($event)">
+</app-create-project>

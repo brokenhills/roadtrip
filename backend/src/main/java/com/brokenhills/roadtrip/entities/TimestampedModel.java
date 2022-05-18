@@ -3,19 +3,34 @@ package com.brokenhills.roadtrip.entities;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.Instant;
 
 @Data
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class TimestampedModel {
 
-    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    @CreatedDate
     private Instant created;
-    @UpdateTimestamp
+
+    @LastModifiedDate
     private Instant updated;
+
+    @Column(name = "created_by")
+    @CreatedBy
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    @LastModifiedBy
+    private String updatedBy;
 }

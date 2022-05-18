@@ -19,12 +19,15 @@ public class UserGroup extends TimestampedModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private UUID id;
+
     @Column(nullable = false)
     private String name;
+
     @JsonBackReference
     @ManyToOne(targetEntity = Department.class)
     @JoinColumn(nullable = false)
     private Department department;
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<User> users;
 }
