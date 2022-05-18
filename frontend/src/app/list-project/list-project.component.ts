@@ -10,9 +10,11 @@ import { ApiService } from '../api.service';
 export class ListProjectComponent implements OnInit {
 
   projects: any;
-  API_URL = environment.apiUrl;
-  isShowList = true;
-  showCreateForm = false;
+  API_URL: string = environment.apiUrl;
+  isShowList: boolean = true;
+  showCreateForm: boolean = false;
+  showEditForm: boolean = false;
+  projectUrl: string = '';
 
   constructor(private apiService: ApiService) { }
 
@@ -26,19 +28,37 @@ export class ListProjectComponent implements OnInit {
     )
   }
 
+  onEditProject(project: any) {
+    this.isShowList = false;
+    this.projectUrl = project._links.self.href;
+    this.showEditForm = true;
+  }
+
   onCreateProject(): void {
     this.isShowList = false;
     this.showCreateForm = true;
   }
 
-  onApproveSave(event: boolean) {
+  onApproveSave(event: boolean): void {
     this.showCreateForm = !event;
     this.isShowList = true;
     this.updateProjectList();
   }
 
-  onCancelSave(event: boolean) {
+  onCancelSave(event: boolean): void {
     this.showCreateForm = !event;
+    this.isShowList = true;
+    this.updateProjectList();
+  }
+
+  onApproveEdit(event: boolean): void {
+    this.showEditForm = !event;
+    this.isShowList = true;
+    this.updateProjectList();
+  }
+
+  onCancelEdit(event: boolean): void {
+    this.showEditForm = !event;
     this.isShowList = true;
     this.updateProjectList();
   }

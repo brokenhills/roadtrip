@@ -11,24 +11,31 @@ export class EditWorkflowComponent implements OnInit {
 
   @Input()
   workflowUrl: string = '';
+
   @Output()
   saveEvent: EventEmitter<boolean> = new EventEmitter();
+
   @Output()
   cancelEvent: EventEmitter<boolean> = new EventEmitter();
+
   workflow: any;
+
   form: FormGroup = new FormGroup({});
+
   workflowTypes: Array<string> = [
     'TASK',
     'REQUIREMENT',
     'ISSUE',
     'BUG'
   ];
+
   workflowStates: Array<string> = [
     'ACTIVE',
     'CLOSED',
   ]
 
   workflowFiles: Array<any> = [];
+  
   files: Array<File> = [];
 
   workflowId: string = '';

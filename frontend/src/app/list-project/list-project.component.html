@@ -6,7 +6,7 @@
         <div>DateFrom</div>
         <div>DateTo</div>
     </div>
-    <div class="project-items item" *ngFor="let project of projects">
+    <div class="project-items item" *ngFor="let project of projects" (click)="onEditProject(project)">
         <div>{{ project.name }}</div>
         <div>{{ project.description }}</div>
         <div>{{ project.department }}</div>
@@ -22,3 +22,9 @@
     (saveEvent)="onApproveSave($event)"
     (cancelEvent)="onCancelSave($event)">
 </app-create-project>
+<app-edit-project 
+    *ngIf="showEditForm"
+    [projectUrl]="projectUrl"
+    (saveEvent)="onApproveEdit($event)"
+    (cancelEvent)="onCancelEdit($event)">
+</app-edit-project>

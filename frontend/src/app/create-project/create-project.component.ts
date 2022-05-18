@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class CreateProjectComponent implements OnInit {
       dateFrom: new FormControl(null, Validators.required),
       dateTo: new FormControl(null, Validators.required),
       department: new FormControl(null),
-      workflows: new FormControl(null),
+      workflows: new FormArray([]),
     });
   }
 

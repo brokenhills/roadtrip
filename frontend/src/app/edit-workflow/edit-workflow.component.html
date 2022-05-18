@@ -18,8 +18,8 @@
                             <label>{{ state }}</label>
                         </option>
                     </datalist>
-            </div> 
-            <label for="content">Content: </label>   
+            </div>
+            <label for="content">Content: </label>
         </div>
         <div class="content-container">
             <textarea class="content" type="text" formControlName="content" id="content" required></textarea>
@@ -29,18 +29,18 @@
                 <label for="child">Child: </label>
                 <input type="search" formControlName="child" id="child">
                 <label for="files">Files: </label>
-                <input type="file" (change)="onFileSelected($event)" #fileUpload>
+                <input type="file" (change)="onFileSelected($event)" id="files" #fileUpload>
                 <button (click)="fileUpload.click()">Upload</button>
                 <div class=files *ngIf="files.length > 0">
                     <div *ngFor="let file of files; let i = index">
                         <div>{{ file.name }}</div>
-                        <button (click)="onRemove(i)">Remove</button>    
+                        <button (click)="onRemove(i)">Remove</button>
                     </div>
                 </div>
                 <div *ngIf='workflowFiles.length > 0'>
                     <div *ngFor="let file of workflowFiles; let i = index">
                         <div>{{ file.name }}</div>
-                        <button (click)="onRemoveWorkflowFile(file.id)">Remove</button>    
+                        <button (click)="onRemoveWorkflowFile(file.id)">Remove</button>
                     </div>
                 </div>
             </div>
@@ -48,6 +48,6 @@
     <div class="button-container">
         <button class="button-submit" (click)="onSubmit()">Save</button>
         <button class="button-cancel" (click)="onCancel()">Cancel</button>
-    </div>    
+    </div>
     </form>
 </div>
