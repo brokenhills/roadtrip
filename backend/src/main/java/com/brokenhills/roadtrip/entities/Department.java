@@ -1,6 +1,6 @@
 package com.brokenhills.roadtrip.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,20 +27,20 @@ public class Department extends TimestampedModel {
             mappedBy = "department",
             targetEntity = User.class,
             orphanRemoval = true)
+    @JsonIgnore
     private Set<User> users;
 
-    @JsonBackReference(value = "groups")
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "department",
             targetEntity = UserGroup.class,
             orphanRemoval = true)
+    @JsonIgnore
     private Set<UserGroup> groups;
 
-    @JsonBackReference(value = "projects")
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "department",
             targetEntity = Project.class,
             orphanRemoval = true)
+    @JsonIgnore
     private Set<Project> projects;
-
 }

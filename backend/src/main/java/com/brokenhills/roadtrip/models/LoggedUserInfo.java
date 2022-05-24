@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class LoggedUserInfo {
 
+    private String id;
     private String username;
     private String role;
     private boolean isNonLocked;

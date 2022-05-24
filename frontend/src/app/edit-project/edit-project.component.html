@@ -3,6 +3,13 @@
         <div class="header-container">
             <label for="name">Title: </label>
             <input type="text" formControlName="name" id="name" required>
+            <label for="department">Department: </label>
+            <input type="search" formControlName="department" id="department" placeholder="Search" list="departments" (keyup)="onDepartmentSearch($event)">
+            <datalist id="departments" *ngIf="departments.length > 0">
+                <option *ngFor="let department of departments">
+                    <label>{{ department._links.self.href }}</label>
+                </option>
+            </datalist>
             <label for="dateFrom">DateFrom: </label>
             <input type="datetime-local" formControlName="dateFrom" id="dateFrom" required>
             <label for="dateTo">DateTo: </label>
@@ -10,13 +17,10 @@
             <label for="description">Description: </label>
         </div>
         <div class="content-container">
-            
             <textarea class="content" type="text" formControlName="description" id="description" required></textarea>
             <div class="links-container">
-                <label for="department">Department: </label>
-                <input type="text" formControlName="department" id="department">
                 <label for="workflows">Workflows: </label>
-                <input type="text" formControlName="workflows" id="workflows">
+                <input type="search" formControlName="workflows" id="workflows">
             </div>
         </div>
         <div class="button-container">

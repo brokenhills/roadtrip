@@ -7,9 +7,6 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import static org.springframework.hateoas.server.core.DummyInvocationUtils.methodOn;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-
 @Component
 public class WorkflowModelAssembler extends RepresentationModelAssemblerSupport<Workflow, WorkflowModel> {
 
@@ -25,7 +22,6 @@ public class WorkflowModelAssembler extends RepresentationModelAssemblerSupport<
     @Override
     public CollectionModel<WorkflowModel> toCollectionModel(Iterable<? extends Workflow> entities) {
         CollectionModel<WorkflowModel> workflowModels = super.toCollectionModel(entities);
-        workflowModels.add(linkTo(methodOn(WorkBoardRestController.class).getRecentWorkflows()).withSelfRel());
         return workflowModels;
     }
 

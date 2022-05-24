@@ -35,9 +35,9 @@ export class ApiService {
     );
   }
 
-  public getRecentWorkflows(): Observable<any>  {
+  public getRecentWorkflows(id: string): Observable<any>  {
     return this.httpClient
-    .get(`${this.API_URL}/board`).pipe(
+    .get(`${this.API_URL}/board/${id}`).pipe(
       map((response: any) => {
         return response;
       }),
@@ -150,6 +150,19 @@ export class ApiService {
 
   public deleteFile(id: string): Observable<any> {
     return this.httpClient.delete(`${this.UPLOAD_URL}/file/${id}`).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  public searchDepartment(name: string): Observable<any> {
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': 'https://localhost:4200'
+    });
+    return this.httpClient
+    .get(`${this.API_URL}/departments/search/findByNameContainingIgnoreCase?name=${name}`).pipe(
       map((response: any) => {
         return response;
       }),

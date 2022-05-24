@@ -1,7 +1,6 @@
 package com.brokenhills.roadtrip.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,6 +30,7 @@ public class User extends TimestampedModel implements UserDetails {
 
     @Column(nullable = false)
     @NotBlank
+    @JsonIgnore
     private String password;
 
     private String firstName;
@@ -45,19 +45,17 @@ public class User extends TimestampedModel implements UserDetails {
 
     private Instant validUntil;
 
-    @JsonBackReference(value = "department")
-    @ManyToOne(targetEntity = Department.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Department.class)
     @JoinColumn(nullable = false)
     private Department department;
 
-    @JsonManagedReference(value = "workflowUser")
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "user",
             orphanRemoval = true)
+    @JsonIgnore
     private Set<Workflow> workflows;
 
-    @JsonBackReference(value = "userRole")
-    @ManyToOne(targetEntity = UserRole.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = UserRole.class)
     @JoinColumn(nullable = false)
     private UserRole role;
 

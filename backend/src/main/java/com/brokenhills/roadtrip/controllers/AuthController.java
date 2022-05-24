@@ -1,5 +1,6 @@
 package com.brokenhills.roadtrip.controllers;
 
+import com.brokenhills.roadtrip.entities.User;
 import com.brokenhills.roadtrip.models.LoggedUserInfo;
 import com.brokenhills.roadtrip.models.LoginRequest;
 import com.brokenhills.roadtrip.models.LoginResponse;
@@ -43,7 +44,7 @@ public class AuthController {
 
             authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-            final UserDetails userDetails = userService
+            final User userDetails = (User) userService
                     .loadUserByUsername(authenticationRequest.getUsername());
 
             final String token = jwtTokenService.generateToken(userDetails);
@@ -54,8 +55,9 @@ public class AuthController {
                     .build());
     }
 
-    private LoggedUserInfo userDetailsToLoggedUserInfo(UserDetails userDetails) {
+    private LoggedUserInfo userDetailsToLoggedUserInfo(User userDetails) {
         return LoggedUserInfo.builder()
+                .id(userDetails.getId().toString())
                 .username(userDetails.getUsername())
                 .isEnabled(userDetails.isEnabled())
                 .isNonExpired(userDetails.isAccountNonExpired())

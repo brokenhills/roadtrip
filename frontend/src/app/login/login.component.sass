@@ -1,10 +1,15 @@
 .login-container
     margin-top: 10em
-    display: flex
+    display: grid
     justify-content: space-around
     font-family: monospace
     font-size: 1.5em
+    .login-form
+        display: inline-block
     .button-container
+        display: grid
+        row-gap: 1em
+        justify-items: right
         :hover
             text-decoration: underline
             cursor: pointer
@@ -12,6 +17,8 @@
             font-family: monospace
             font-size: 1em
             margin-top: 0.5em
-            float: right
             border: none
             background: none
+    .login-error
+        font-size: 0.6em
+        word-break: break-word

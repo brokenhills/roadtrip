@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -8,6 +9,8 @@ import { ApiService } from '../api.service';
   styleUrls: ['./edit-project.component.sass']
 })
 export class EditProjectComponent implements OnInit {
+
+  API_URL: string = environment.apiUrl;
 
   @Input()
   projectUrl: string = '';
@@ -21,6 +24,10 @@ export class EditProjectComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   
   project: any;
+
+  workflows: Array<any> = [];
+
+  departments: Array<any> = [];
 
   constructor(private formBuilder: FormBuilder, private apiService: ApiService) { }
 
@@ -41,9 +48,19 @@ export class EditProjectComponent implements OnInit {
         this.form.get('dateFrom')?.setValue(this.project.dateFrom);
         this.form.get('dateTo')?.setValue(this.project.dateTo);
         this.form.get('department')?.setValue(this.project.department);
-        this.form.get('workflows')?.setValue(this.project.workflows);
+        this.form.get('workflows')?.setValue(this.workflows);
+        this.apiService.getAny(this.project._links.workflows.href).subscribe((data) => {
+          this.workflows = data;
+          this.form.controls['workflows'].setValue(this.workflows);
+        });
       }
     })
+  }
+
+  onDepartmentSearch(event: any) {
+    this.apiService.searchDepartment(event.target.value).subscribe((data) => {
+      this.departments = data._embedded.departments;
+    });
   }
 
   onSubmit() {

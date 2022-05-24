@@ -27,13 +27,13 @@ export class RecentWorkflowsComponent implements OnInit {
 
   getRecentWorkflows(): void {
     if (this.isLoggedIn) {
-      this.api.getRecentWorkflows().subscribe(data => this.workflows = data);
+      this.api.getRecentWorkflows(this.tokenStorage.getUser().id).subscribe(data => this.workflows = data);
     }
   }
 
-  onEditWorkflow(id: string) {
+  onEditWorkflow(url: string) {
     this.showEditForm = true;
-    this.workflowUrl = `${this.API_URL}/workflows/${id}`
+    this.workflowUrl = url;
   }
 
   onApproveEdit(event: boolean) {

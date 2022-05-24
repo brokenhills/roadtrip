@@ -2,33 +2,45 @@ package com.brokenhills.roadtrip.controllers;
 
 import com.brokenhills.roadtrip.entities.Workflow;
 import com.brokenhills.roadtrip.repositories.WorkflowRepository;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
+import org.springframework.hateoas.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.*;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(path = "/api/board")
 @CrossOrigin(origins = "*")
 public class WorkBoardRestController {
 
+    private final RepositoryEntityLinks links;
     private final WorkflowRepository workflowRepository;
 
-    public WorkBoardRestController(WorkflowRepository workflowRepository) {
+    public WorkBoardRestController(RepositoryEntityLinks links,
+                                   WorkflowRepository workflowRepository) {
+        this.links = links;
         this.workflowRepository = workflowRepository;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{userId}", produces = "application/hal+json")
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, List<Workflow>> getRecentWorkflows() {
-        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by("updated").descending());
-        List<Workflow> workflows = workflowRepository.findAll(pageRequest).getContent();
-        return workflows.stream().collect(groupingBy(Workflow::getState));
+    public EntityModel<Map<String, List<EntityModel<Workflow>>>> getRecentWorkflows(@PathVariable("userId") String userId) {
+        Link link = linkTo(methodOn(WorkBoardRestController.class).getRecentWorkflows(userId)).withSelfRel();
+        Map<String, List<EntityModel<Workflow>>> map = workflowRepository.findByUserId(UUID.fromString(userId))
+                .stream()
+                .collect(groupingBy(Workflow::getState,
+                        mapping(l -> EntityModel
+                                        .of(l)
+                                        .add(links.linkToItemResource(WorkflowRepository.class, l.getId())
+                                                .withSelfRel()),
+                                toList())));
+        return EntityModel.of(map).add(link);
     }
 }

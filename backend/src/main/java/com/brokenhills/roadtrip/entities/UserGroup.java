@@ -1,6 +1,6 @@
 package com.brokenhills.roadtrip.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,11 +23,11 @@ public class UserGroup extends TimestampedModel {
     @Column(nullable = false)
     private String name;
 
-    @JsonBackReference
-    @ManyToOne(targetEntity = Department.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Department.class)
     @JoinColumn(nullable = false)
     private Department department;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
+    @JsonIgnore
     private Set<User> users;
 }

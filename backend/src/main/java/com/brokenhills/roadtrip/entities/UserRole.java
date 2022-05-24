@@ -1,11 +1,7 @@
 package com.brokenhills.roadtrip.entities;
 
 import com.brokenhills.roadtrip.annotation.ValueOfEnum;
-import com.brokenhills.roadtrip.entities.Department;
-import com.brokenhills.roadtrip.entities.TimestampedModel;
-import com.brokenhills.roadtrip.entities.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,15 +31,14 @@ public class UserRole extends TimestampedModel {
 
     private String name;
 
-    @JsonBackReference(value = "roleDepartment")
     @ManyToOne(fetch = FetchType.LAZY,
             targetEntity = Department.class)
     private Department department;
 
-    @JsonManagedReference(value = "userRole")
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "role",
             targetEntity = User.class)
+    @JsonIgnore
     private Set<User> users;
 
     public enum RoleType {

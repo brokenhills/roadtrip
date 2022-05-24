@@ -7,7 +7,7 @@
                 <div>State</div>
                 <div>Updated</div>
             </div>
-            <div class="workflow-container item" *ngFor="let workflow of workflows[state]" (click)="onEditWorkflow(workflow.id)">
+            <div class="workflow-container item" *ngFor="let workflow of workflows[state]" (click)="onEditWorkflow(workflow._links.self.href)">
                 <div>
                     {{workflow.name}}
                 </div>

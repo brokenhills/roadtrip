@@ -12,7 +12,6 @@ import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.hateoas.server.RepresentationModelProcessor;
 import org.springframework.web.client.RestTemplate;
 
-
 @Configuration
 @EnableJpaAuditing
 public class AppConfig {
@@ -36,8 +35,8 @@ public class AppConfig {
                     PagedModel<EntityModel<Workflow>> resource) {
                 resource.add(
                         links.linkFor(Workflow.class)
-                                .slash("recent")
-                                .withRel("recent"));
+                                .slash("board")
+                                .withRel("board"));
                 return resource;
             }
         };

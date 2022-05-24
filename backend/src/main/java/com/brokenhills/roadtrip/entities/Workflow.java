@@ -1,7 +1,6 @@
 package com.brokenhills.roadtrip.entities;
 
 import com.brokenhills.roadtrip.annotation.ValueOfEnum;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vladmihalcea.hibernate.type.array.ListArrayType;
 import lombok.*;
 import org.hibernate.annotations.Type;
@@ -52,13 +51,11 @@ public class Workflow extends TimestampedModel {
     @Column(columnDefinition = "uuid[]")
     private List<UUID> child;
 
-    @JsonBackReference(value = "workflowUsers")
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     @JoinColumn(nullable = false)
     private User user;
 
-    @JsonBackReference(value = "project")
-    @ManyToOne(targetEntity = Project.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Project.class)
     private Project project;
 
     public enum WorkflowType {

@@ -1,6 +1,6 @@
 package com.brokenhills.roadtrip.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -43,5 +43,6 @@ public class Project extends TimestampedModel {
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "project",
             orphanRemoval = true)
+    @JsonIgnore
     private Set<Workflow> workflows;
 }

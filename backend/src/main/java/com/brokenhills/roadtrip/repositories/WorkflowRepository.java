@@ -6,6 +6,7 @@ import com.brokenhills.roadtrip.entities.Workflow;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -22,4 +23,9 @@ public interface WorkflowRepository extends PagingAndSortingRepository<Workflow,
             "JOIN wf.user ur " +
             "WHERE ur.department = :department")
     List<Workflow> findByDepartment(Department department);
+
+    @Query(value = "SELECT wf FROM Workflow wf " +
+            "JOIN wf.user ur " +
+            "WHERE ur.id = :userId")
+    List<Workflow> findByUserId(UUID userId);
 }
