@@ -40,5 +40,4 @@ export class CreateProjectComponent implements OnInit {
   onCancel() {
     this.cancelEvent.emit(true);
   }
-
 }

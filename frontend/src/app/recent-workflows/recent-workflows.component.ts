@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { ApiService } from '../api.service';
 import { TokenStorageService } from '../token-storage.service';
 
@@ -9,8 +8,6 @@ import { TokenStorageService } from '../token-storage.service';
   styleUrls: ['./recent-workflows.component.sass']
 })
 export class RecentWorkflowsComponent implements OnInit {
-
-  API_URL = environment.apiUrl;
 
   states: Array<string> = [ 'NEW', 'ACTIVE', 'CLOSED' ];
   workflows: any;

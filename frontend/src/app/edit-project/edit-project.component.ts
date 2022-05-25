@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { environment } from 'src/environments/environment';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -9,8 +8,6 @@ import { ApiService } from '../api.service';
   styleUrls: ['./edit-project.component.sass']
 })
 export class EditProjectComponent implements OnInit {
-
-  API_URL: string = environment.apiUrl;
 
   @Input()
   projectUrl: string = '';

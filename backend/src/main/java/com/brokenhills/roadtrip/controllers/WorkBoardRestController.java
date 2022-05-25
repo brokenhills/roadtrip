@@ -36,11 +36,14 @@ public class WorkBoardRestController {
         Map<String, List<EntityModel<Workflow>>> map = workflowRepository.findByUserId(UUID.fromString(userId))
                 .stream()
                 .collect(groupingBy(Workflow::getState,
-                        mapping(l -> EntityModel
-                                        .of(l)
-                                        .add(links.linkToItemResource(WorkflowRepository.class, l.getId())
-                                                .withSelfRel()),
-                                toList())));
+                        mapping(l -> toEntityModelWithLinks(l, l.getId()), toList())));
         return EntityModel.of(map).add(link);
+    }
+
+    private <T> EntityModel<T> toEntityModelWithLinks(T entity, Object entityId) {
+        return EntityModel
+                .of(entity)
+                .add(links.linkToItemResource(WorkflowRepository.class, entityId)
+                .withSelfRel());
     }
 }
